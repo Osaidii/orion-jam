@@ -3,9 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://eecn0m6uy3rr" path="res://assets/player uheartbeast github.com.png" id="1_g2els"]
 [ext_resource type="Script" uid="uid://temqf4g3xkyi" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bl43eun2vp1j8" path="res://assets/player boost uheartbeast github.com.png" id="2_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://crox18s2mj31l" path="res://assets/coin.wav" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://dk5f34ndw4o13" path="res://assets/laser sound uheartbeast github.com.wav" id="5_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://bel68c0mcjkuh" path="res://assets/explosion sound uheartbeast github.com.wav" id="6_tuyoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 size = Vector2(14, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
+radius = 1280.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1915029882]
 script = ExtResource("1_qhqgy")
@@ -30,4 +36,21 @@ region_rect = Rect2(16, 16, 16, 8)
 [node name="Shoot Cooldown" type="Timer" parent="." unique_id=1089778930]
 one_shot = true
 
+[node name="Coin" type="AudioStreamPlayer2D" parent="." unique_id=1281222416]
+stream = ExtResource("4_dqkch")
+volume_db = -10.0
+
+[node name="Laser" type="AudioStreamPlayer2D" parent="." unique_id=612698016]
+stream = ExtResource("5_qlg0r")
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="." unique_id=873398728]
+stream = ExtResource("6_tuyoq")
+volume_db = -10.0
+
+[node name="Nearby" type="Area2D" parent="." unique_id=1506366517]
+
+[node name="Collision" type="CollisionShape2D" parent="Nearby" unique_id=398405428]
+shape = SubResource("CircleShape2D_tuyoq")
+
 [connection signal="timeout" from="Shoot Cooldown" to="." method="_on_shoot_cooldown_timeout"]
+[connection signal="body_entered" from="Nearby" to="." method="_on_nearby_body_entered"]

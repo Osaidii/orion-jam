@@ -3,9 +3,17 @@
 [ext_resource type="Script" uid="uid://dp0a2h5kk5i5x" path="res://scripts/enemy.gd" id="1_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://eecn0m6uy3rr" path="res://assets/player uheartbeast github.com.png" id="2_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://bl43eun2vp1j8" path="res://assets/player boost uheartbeast github.com.png" id="3_c4w8v"]
+[ext_resource type="AudioStream" uid="uid://dk5f34ndw4o13" path="res://assets/laser sound uheartbeast github.com.wav" id="4_5uy6h"]
+[ext_resource type="AudioStream" uid="uid://bel68c0mcjkuh" path="res://assets/explosion sound uheartbeast github.com.wav" id="5_c4w8v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 size = Vector2(14, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c4w8v"]
+radius = 194.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwavj"]
+radius = 273.1172
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1915029882]
 script = ExtResource("1_4ra3w")
@@ -30,4 +38,25 @@ region_rect = Rect2(16, 16, 16, 8)
 [node name="Shoot Cooldown" type="Timer" parent="." unique_id=1089778930]
 one_shot = true
 
+[node name="Laser" type="AudioStreamPlayer2D" parent="." unique_id=1868012532]
+stream = ExtResource("4_5uy6h")
+volume_db = -5.0
+attenuation = 3.1383357
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="." unique_id=2034023508]
+stream = ExtResource("5_c4w8v")
+volume_db = -10.0
+
+[node name="Start" type="Area2D" parent="." unique_id=238465194]
+
+[node name="Collision" type="CollisionShape2D" parent="Start" unique_id=894608681]
+shape = SubResource("CircleShape2D_c4w8v")
+
+[node name="Leave" type="Area2D" parent="." unique_id=934448262]
+
+[node name="Collision" type="CollisionShape2D" parent="Leave" unique_id=1856317375]
+shape = SubResource("CircleShape2D_xwavj")
+
 [connection signal="timeout" from="Shoot Cooldown" to="." method="_on_shoot_cooldown_timeout"]
+[connection signal="body_entered" from="Start" to="." method="_on_start_body_entered"]
+[connection signal="body_entered" from="Leave" to="." method="_on_leave_body_entered"]

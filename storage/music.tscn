@@ -17,19 +17,19 @@ script = ExtResource("1_bvsk0")
 [node name="Music 1" type="AudioStreamPlayer" parent="." unique_id=1035801085]
 process_mode = 3
 stream = ExtResource("2_x4jot")
-volume_db = -20.0
+volume_db = -15.0
 bus = &"Music"
 
 [node name="Music 2" type="AudioStreamPlayer" parent="." unique_id=1902740458]
 process_mode = 3
 stream = ExtResource("3_ght2i")
-volume_db = -20.0
+volume_db = -15.0
 bus = &"Music"
 
 [node name="Music 3" type="AudioStreamPlayer" parent="." unique_id=1398509125]
 process_mode = 3
 stream = ExtResource("4_e68ll")
-volume_db = -18.0
+volume_db = -15.0
 bus = &"Music"
 
 [connection signal="finished" from="Music 1" to="." method="_on_music_1_finished"]
