@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://d0a6b8d1mcksc" path="res://assets/close stars bg uheartbeast github.com.png" id="8_vvyho"]
 [ext_resource type="Texture2D" uid="uid://eecn0m6uy3rr" path="res://assets/player uheartbeast github.com.png" id="9_v50sc"]
 [ext_resource type="PackedScene" uid="uid://dnt6swa812ck8" path="res://scenes/camera.tscn" id="10_b8ocl"]
+[ext_resource type="Texture2D" uid="uid://bjvjq4gs53sgm" path="res://assets/Window for Screen.png" id="10_m2h23"]
+[ext_resource type="Texture2D" uid="uid://blpkwfrfpl1c3" path="res://assets/UI/You Win.png" id="11_8qop0"]
+[ext_resource type="Texture2D" uid="uid://bx0aon58jl8oh" path="res://assets/UI/Exit Buttom.png" id="12_mu2gi"]
+[ext_resource type="Texture2D" uid="uid://de60v72r8wvf8" path="res://assets/UI/Buttons/Replay.png" id="13_c7dhu"]
+[ext_resource type="Texture2D" uid="uid://dycrubkttj844" path="res://assets/UI/Buttons/Replay Pressed.png" id="14_qthij"]
 [ext_resource type="Texture2D" uid="uid://hqbs3y6mts0t" path="res://assets/planet by deep-fold itch.io.png" id="17_qthij"]
 [ext_resource type="Texture2D" uid="uid://dcpaorg35ti7g" path="res://assets/UI/Message.png" id="18_40a5i"]
 
@@ -979,6 +984,9 @@ tracks/4/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_m2h23"]
+resource_name = "ending"
+
 [sub_resource type="Animation" id="Animation_er82a"]
 resource_name = "scene"
 length = 19.0
@@ -1046,10 +1054,11 @@ tracks/4/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_40a5i"]
 _data = {
 &"RESET": SubResource("Animation_75brc"),
+&"ending": SubResource("Animation_m2h23"),
 &"scene": SubResource("Animation_er82a")
 }
 
-[node name="World" type="Node2D" unique_id=1408466898]
+[node name="Cutscene" type="Node2D" unique_id=1408466898]
 script = ExtResource("1_qthij")
 
 [node name="Background" type="ParallaxBackground" parent="." unique_id=1551359071]
@@ -1237,12 +1246,6 @@ collecting them"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Camera" parent="." unique_id=404697834 instance=ExtResource("10_b8ocl")]
-position = Vector2(640, 360)
-position_smoothing_enabled = true
-position_smoothing_speed = 3.0
-script = null
-
 [node name="Cutscenes" type="AnimationPlayer" parent="." unique_id=996172913]
 libraries/ = SubResource("AnimationLibrary_40a5i")
 autoplay = &"scene"
@@ -1255,4 +1258,58 @@ texture = ExtResource("9_v50sc")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
+[node name="Camera" parent="." unique_id=404697834 instance=ExtResource("10_b8ocl")]
+position = Vector2(640, 360)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+script = null
+
+[node name="Screens" type="CanvasLayer" parent="." unique_id=2110309100]
+
+[node name="Win Screen" type="MarginContainer" parent="Screens" unique_id=499759721]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Window" type="Sprite2D" parent="Screens/Win Screen" unique_id=729499167]
+position = Vector2(630, 344)
+scale = Vector2(4.3333335, 4.2194285)
+texture = ExtResource("10_m2h23")
+
+[node name="Win" type="Sprite2D" parent="Screens/Win Screen" unique_id=566310280]
+position = Vector2(630, 174.00002)
+scale = Vector2(0.8608177, 0.83819044)
+texture = ExtResource("11_8qop0")
+
+[node name="Good Job" type="Label" parent="Screens/Win Screen/Win" unique_id=1900899226]
+offset_left = -146.37245
+offset_top = 56.073135
+offset_right = 290.62756
+offset_bottom = 171.07314
+scale = Vector2(0.655, 0.655)
+theme_override_constants/outline_size = 18
+theme_override_fonts/font = ExtResource("5_loviu")
+theme_override_font_sizes/font_size = 92
+text = "Good Job!"
+
+[node name="Exit" type="TextureButton" parent="Screens/Win Screen/Win" unique_id=1591032648]
+process_mode = 3
+offset_left = -202.13342
+offset_top = 288.7172
+offset_right = 207.86658
+offset_bottom = 409.7172
+texture_normal = ExtResource("12_mu2gi")
+
+[node name="Replay" type="TextureButton" parent="Screens/Win Screen/Win" unique_id=1358750010]
+process_mode = 3
+offset_left = -48.790833
+offset_top = 159.86821
+offset_right = 161.20917
+offset_bottom = 369.86823
+scale = Vector2(0.45, 0.45)
+texture_normal = ExtResource("13_c7dhu")
+texture_pressed = ExtResource("14_qthij")
+
 [connection signal="animation_finished" from="Cutscenes" to="." method="_on_cutscenes_animation_finished"]
+[connection signal="pressed" from="Screens/Win Screen/Win/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Screens/Win Screen/Win/Replay" to="." method="_on_replay_pressed"]

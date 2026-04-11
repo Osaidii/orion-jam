@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://cjoi2oud5v7yy" path="res://assets/bg uheartbeast github.com.png" id="1_71j4m"]
 [ext_resource type="Script" uid="uid://duyeqlm514d8h" path="res://scripts/world.gd" id="1_oo54l"]
-[ext_resource type="PackedScene" uid="uid://dnt6swa812ck8" path="res://scenes/camera.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://c2hex6e07s40k" path="res://scenes/player.tscn" id="2_4wyf3"]
 [ext_resource type="Texture2D" uid="uid://hqbs3y6mts0t" path="res://assets/planet by deep-fold itch.io.png" id="2_kpybi"]
 [ext_resource type="Texture2D" uid="uid://bfcei5w41h77o" path="res://assets/Window for Coins.png" id="2_pm21f"]
@@ -24,6 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://cs5mgp2lqxp4f" path="res://assets/UI/Buttons/Sound Pressed.png" id="16_xgqkh"]
 [ext_resource type="Texture2D" uid="uid://8gngl300ky2g" path="res://assets/UI/Buttons/Music Pressed.png" id="17_munwf"]
 [ext_resource type="Shader" uid="uid://dhe8ht5tacnke" path="res://storage/blur.tres" id="18_lakw3"]
+[ext_resource type="Texture2D" uid="uid://bjvjq4gs53sgm" path="res://assets/Window for Screen.png" id="24_munwf"]
+[ext_resource type="Texture2D" uid="uid://c6okuclbtxpxr" path="res://assets/UI/You Lose.png" id="25_ts3gi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_er82a"]
 atlas = ExtResource("2_kpybi")
@@ -1159,6 +1160,7 @@ _data = {
 script = ExtResource("1_oo54l")
 
 [node name="Planet" type="AnimatedSprite2D" parent="." unique_id=964183215]
+z_index = -1
 position = Vector2(990, 436)
 scale = Vector2(4.5, 4.5)
 sprite_frames = SubResource("SpriteFrames_ctatt")
@@ -1272,6 +1274,12 @@ scale = Vector2(3.075, 3.075)
 sprite_frames = SubResource("SpriteFrames_fh13f")
 animation = &"die"
 autoplay = "normal"
+
+[node name="TextureRect" type="TextureRect" parent="UI" unique_id=1650581585]
+offset_left = 1163.18
+offset_top = 41.0
+offset_right = 1203.18
+offset_bottom = 81.0
 
 [node name="Background" type="ParallaxBackground" parent="." unique_id=1551359071]
 scale = Vector2(2, 2)
@@ -1390,11 +1398,10 @@ texture = ExtResource("3_i7141")
 [node name="Player" parent="." unique_id=1062914096 instance=ExtResource("2_4wyf3")]
 position = Vector2(543, 432)
 
-[node name="Camera" parent="Player" unique_id=404697834 instance=ExtResource("1_rwgxs")]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=822289227]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
-script = null
 
 [node name="Enemy" parent="." unique_id=1915029882 instance=ExtResource("6_qfnet")]
 position = Vector2(-106, -315)
@@ -1513,6 +1520,52 @@ texture_normal = ExtResource("14_kpybi")
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_2lf6f")
 
+[node name="Screens" type="CanvasLayer" parent="." unique_id=761929492]
+
+[node name="Lose Screen" type="MarginContainer" parent="Screens" unique_id=1342301648]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Window" type="Sprite2D" parent="Screens/Lose Screen" unique_id=546297804]
+position = Vector2(630, 344)
+scale = Vector2(4.3333335, 4.2194285)
+texture = ExtResource("24_munwf")
+
+[node name="Lose" type="Sprite2D" parent="Screens/Lose Screen" unique_id=248718536]
+position = Vector2(630, 174.00002)
+scale = Vector2(0.8608177, 0.83819044)
+texture = ExtResource("25_ts3gi")
+
+[node name="Try Again" type="Label" parent="Screens/Lose Screen/Lose" unique_id=341437781]
+offset_left = -146.37245
+offset_top = 56.073135
+offset_right = 290.62756
+offset_bottom = 171.07314
+scale = Vector2(0.655, 0.655)
+theme_override_constants/outline_size = 18
+theme_override_fonts/font = ExtResource("4_7iits")
+theme_override_font_sizes/font_size = 92
+text = "TRY AGAIN"
+
+[node name="Exit" type="TextureButton" parent="Screens/Lose Screen/Lose" unique_id=2071150862]
+process_mode = 3
+offset_left = -200.97174
+offset_top = 293.48938
+offset_right = 209.02826
+offset_bottom = 503.48938
+texture_normal = ExtResource("15_ctatt")
+
+[node name="Replay" type="TextureButton" parent="Screens/Lose Screen/Lose" unique_id=1146936031]
+process_mode = 3
+offset_left = -61.569397
+offset_top = 161.06123
+offset_right = 148.4306
+offset_bottom = 371.06122
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("11_2lf6f")
+texture_pressed = ExtResource("12_7iits")
+
 [connection signal="pressed" from="UI/Pause/Pause" to="Pause Menu" method="_on_pause_pressed"]
 [connection signal="pressed" from="Pause Menu/UI/Exit Margin/Exit" to="Pause Menu" method="_on_exit_pressed"]
 [connection signal="pressed" from="Pause Menu/UI/Sound Enabled" to="Pause Menu" method="_on_sound_enabled_pressed"]
@@ -1521,3 +1574,5 @@ libraries/ = SubResource("AnimationLibrary_2lf6f")
 [connection signal="pressed" from="Pause Menu/UI/Replay" to="Pause Menu" method="_on_replay_pressed"]
 [connection signal="pressed" from="Pause Menu/UI/Sound" to="Pause Menu" method="_on_sound_pressed"]
 [connection signal="pressed" from="Pause Menu/UI/Music" to="Pause Menu" method="_on_music_pressed"]
+[connection signal="pressed" from="Screens/Lose Screen/Lose/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Screens/Lose Screen/Lose/Replay" to="." method="_on_replay_pressed"]

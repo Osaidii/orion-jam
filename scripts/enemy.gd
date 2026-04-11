@@ -11,14 +11,15 @@ extends CharacterBody2D
 @onready var laser_sound: AudioStreamPlayer2D = $Laser
 @onready var explosion: AudioStreamPlayer2D = $Explosion
 
-@export var SPEED = 150.0
-@export var COOLDOWN := 0.1
+var speed := 150
+@export var COOLDOWN := 0.25
 
 var is_alive := true
 var can_shoot := true
 var can_move := true
 var start_hunting := false
 var nearby := false
+var player_is_facing: bool
 
 func _ready() -> void:
 	shoot_cooldown.wait_time = COOLDOWN
@@ -26,10 +27,20 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# Move Toward Player if nearby
 	var direction: Vector2
-	if nearby and !start_hunting:
-		direction = (Shortcuts.player_pos - global_position).normalized()
-	else:
-		pass
+	if nearby:
+		if start_hunting:
+			# Stop chasing
+			if can_shoot:
+				shoot()
+			
+			if player_is_facing:
+				dodge()
+			else:
+				# Stay mostly still when not dodging
+				velocity = lerp(velocity, Vector2.ZERO, delta * 3.0)
+		else:
+			# Chase player
+			direction = (Shortcuts.player_pos - global_position).normalized()
 	
 	# Rotate towards player
 	if direction != Vector2.ZERO:
@@ -37,10 +48,10 @@ func _physics_process(delta: float) -> void:
 	
 	# Apply Movement
 	if direction and can_move:
-		velocity = direction * SPEED
+		velocity = direction * speed
 	else:
-		velocity.x = lerp(velocity.x, Vector2.ZERO.x * SPEED, delta)
-		velocity.y = lerp(velocity.y, Vector2.ZERO.y * SPEED, delta)
+		velocity.x = lerp(velocity.x, Vector2.ZERO.x * speed, delta)
+		velocity.y = lerp(velocity.y, Vector2.ZERO.y * speed, delta)
 	move_and_slide()
 
 func die() -> void:
@@ -71,21 +82,22 @@ func shoot() -> void:
 	instance.z_index = z_index - 1
 	root.add_child.call_deferred(instance)
 	shoot_cooldown.start()
-	can_shoot = false
 	laser_sound.play()
-	shoot_cooldown.start()
 
 func _on_shoot_cooldown_timeout() -> void:
 	# End Cooldown
 	can_shoot = true
 
-func _on_leave_body_entered(body: Node2D) -> void:
-	# Stop Hunting Player
-	if body is Player:
-		start_hunting = false
-		print(start_hunting)
-
 func _on_start_body_entered(body: Node2D) -> void:
 	# Hunt Player
 	if body is Player:
 		start_hunting = true
+
+func dodge() -> void:
+	var side =  randi_range(-1, 1)
+	velocity.x = 70 * side
+
+func _on_start_body_exited(body: Node2D) -> void:
+		# Stop Hunting Player
+	if body is Player:
+		start_hunting = false

@@ -15,6 +15,10 @@ extends CharacterBody2D
 @onready var heart_1: AnimatedSprite2D = $"../UI/Hearts/Heart 1"
 @onready var heart_2: AnimatedSprite2D = $"../UI/Hearts/Heart 2"
 @onready var heart_3: AnimatedSprite2D = $"../UI/Hearts/Heart 3"
+@onready var screens: CanvasLayer = $"../Screens"
+@onready var lose_screen: MarginContainer = $"../Screens/Lose Screen"
+@onready var exit: TextureButton = $"../Screens/Exit"
+@onready var replay: TextureButton = $"../Screens/Replay"
 
 @export var speed := 150
 @export var COOLDOWN := 0.1
@@ -51,7 +55,10 @@ func _physics_process(delta: float) -> void:
 		
 	# Look at Mouse
 	look_at(mouse_position)
-	#look_at(lerp(Vector2(rotation, 0), mouse_position, 1.0))
+	
+	# Win Conditions
+	if stored_coins >= 500:
+		Shortcuts.game_over = true
 	
 	# Shoot
 	if Input.is_action_pressed("RMB") and can_shoot:
@@ -72,10 +79,10 @@ func _physics_process(delta: float) -> void:
 	Shortcuts.no_tutorial = player_shot_or_moved
 	
 	# Movement
-	var direction := Vector2.ZERO
+	direction = Vector2.ZERO
 	if Input.is_action_pressed("LMB") and can_move:
 		player_shot_or_moved = true
-		direction = (mouse_position - position).normalized()
+		direction = (mouse_position - global_position).normalized()
 		var target_velocity = direction * speed
 		velocity = lerp(velocity, target_velocity, delta * 2.0)
 		flame.visible = true
@@ -123,7 +130,9 @@ func die() -> void:
 	if Shortcuts.lifes > 0:
 		get_tree().reload_current_scene()
 	else:
-		pass # MAKE LOSE SCREEN HERE
+		lose_screen.visible = true
+		exit.visible = true
+		replay.visible = true
 	self.queue_free()
 
 func _on_nearby_body_entered(body: Node2D) -> void:
@@ -131,3 +140,11 @@ func _on_nearby_body_entered(body: Node2D) -> void:
 	if body is Enemy:
 		body.nearby = true
 		print(body.nearby)
+
+func _on_facing_body_entered(body: Node2D) -> void:
+	if body is Enemy:
+		body.player_is_facing = true
+
+func _on_facing_body_exited(body: Node2D) -> void:
+	if body is Enemy:
+		body.player_is_facing = false
