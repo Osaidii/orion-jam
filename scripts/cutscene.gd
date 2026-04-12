@@ -21,6 +21,7 @@ func _on_exit_pressed() -> void:
 	Shortcuts.game_over = false
 	Shortcuts.coins = 0
 	Shortcuts.lifes = 3
+	Shortcuts.tutorial_played = false
 	transition.get_child(1).play("out")
 	await get_tree().create_timer(1.1).timeout
 	get_tree().change_scene_to_packed(MAIN_MENU)
@@ -29,6 +30,7 @@ func _on_replay_pressed() -> void:
 	Shortcuts.game_over = false
 	Shortcuts.coins = 0
 	Shortcuts.lifes = 3
+	Shortcuts.tutorial_played = false
 	transition.get_child(1).play("out")
 	await get_tree().create_timer(1.1).timeout
 	get_tree().change_scene_to_packed(WORLD)

@@ -34,6 +34,10 @@ texture = ExtResource("2_qhqgy")
 region_enabled = true
 region_rect = Rect2(16, 16, 16, 8)
 
+[node name="Marker" type="Marker2D" parent="Ship" unique_id=1940586611]
+position = Vector2(-2.1855695e-07, -5)
+rotation = -1.5707964
+
 [node name="Shoot Cooldown" type="Timer" parent="." unique_id=1089778930]
 one_shot = true
 

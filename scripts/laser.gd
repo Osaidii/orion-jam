@@ -20,11 +20,37 @@ func _physics_process(_delta: float) -> void:
 
 func _on_check_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and body != EXCLUDE and body.is_alive:
-		body.die()
-		var instance  = explosion.instantiate()
-		instance.global_position = global_position
-		instance.rotation = rotation
-		instance.z_index = z_index + 1
-		root.add_child.call_deferred(instance)
-		instance.play("explode")
-		self.queue_free()
+		if body is Enemy:
+			body.die()
+			var instance  = explosion.instantiate()
+			instance.global_position = global_position
+			instance.rotation = rotation
+			instance.z_index = z_index + 1
+			root.add_child.call_deferred(instance)
+			instance.play("explode")
+			self.queue_free()
+		if body is Player:
+			if body.health == 0:
+				body.die()
+				var instance  = explosion.instantiate()
+				instance.global_position = global_position
+				instance.rotation = rotation
+				instance.z_index = z_index + 1
+				root.add_child.call_deferred(instance)
+				instance.play("explode")
+				body.add_trauma(0.15)
+				root.frame_freeze()
+				self.queue_free()
+			else:
+				body.health -= 1
+				body.health_changed()
+				root.frame_freeze()
+				var instance  = explosion.instantiate()
+				instance.global_position = global_position
+				instance.rotation = rotation
+				instance.z_index = z_index + 1
+				root.add_child.call_deferred(instance)
+				instance.play("explode")
+				instance.scale *= 0.5
+				body.add_trauma(0.15)
+				self.queue_free()

@@ -10,6 +10,8 @@ extends CharacterBody2D
 @onready var COIN = load("uid://np7vlpikl3cd")
 @onready var laser_sound: AudioStreamPlayer2D = $Laser
 @onready var explosion: AudioStreamPlayer2D = $Explosion
+@onready var marker: Marker2D = $Ship/Marker
+@onready var player: Player = $"../../Player"
 
 var speed := 130
 @export var COOLDOWN := 0.25
@@ -65,6 +67,7 @@ func die() -> void:
 	ship.visible = false
 	flame.visible = false
 	shoot_cooldown.stop()
+	player.add_trauma(0.05)
 	var instance  = COIN.instantiate()
 	instance.global_position = global_position
 	instance.z_index = z_index - 1
@@ -79,7 +82,7 @@ func shoot() -> void:
 	var instance  = laser.instantiate()
 	instance.EXCLUDE = self
 	instance.direction = rotation
-	instance.spawn_position = global_position
+	instance.spawn_position = marker.global_position
 	instance.spawn_rotation = rotation
 	instance.z_index = z_index - 1
 	instance.collision_layer = 4

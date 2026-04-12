@@ -16,9 +16,15 @@ extends CharacterBody2D
 @onready var heart_3: AnimatedSprite2D = $"../UI/Hearts/Heart 3"
 @onready var screens: CanvasLayer = $"../Screens"
 @onready var lose_screen: MarginContainer = $"../Screens/Lose Screen"
+@onready var marker: Marker2D = $Ship/Marker
+@onready var camera: Camera2D = $Camera2D
 
 @export var speed := 180
 @export var COOLDOWN := 0.1
+@export_category("Screen Shake")
+@export var decay := 0.8
+@export var max_offset := Vector2(100, 75)
+@export var max_roll := 0.1
 @export_category("External")
 @export var direction: Vector2
 
@@ -26,9 +32,14 @@ var stored_coins := 0
 var is_alive := true
 var can_shoot := true
 var can_move := true
+var health := 0
+var trauma := 0.0
+var trauma_power := 2
 
 func _ready() -> void:
 	# Set Cooldown
+	health = 4
+	randomize()
 	shoot_cooldown.wait_time = COOLDOWN
 	stored_coins = Shortcuts.coins
 	match Shortcuts.lifes:
@@ -39,22 +50,30 @@ func _ready() -> void:
 			heart_3.play("empty")
 		3:
 			pass
+	if get_tree().current_scene == load("res://scenes/world.tscn"):
+		health_changed()
 
 func _input(event: InputEvent) -> void:
 	# Rotate toward Mouse
 	if event is InputEventMouseMotion:
 		rotation = deg_to_rad(event.relative.y + event.relative.y)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void: 
 	# Get Mouse Position
 	var mouse_position = get_global_mouse_position()
-		
+	
+	# Set Screen Shake
+	if trauma:
+		trauma = max(trauma - decay * delta, 0)
+		screen_shake()
+	
 	# Look at Mouse
 	look_at(mouse_position)
 	
 	# Shoot
 	if Input.is_action_pressed("RMB") and can_shoot:
 		shoot()
+		Shortcuts.tutorial_played = true
 	
 	# Store Positon Globaly
 	Shortcuts.player_pos = global_position
@@ -71,6 +90,7 @@ func _physics_process(delta: float) -> void:
 	# Movement
 	direction = Vector2.ZERO
 	if Input.is_action_pressed("LMB") and can_move:
+		Shortcuts.tutorial_played = true
 		direction = (mouse_position - global_position).normalized()
 		var target_velocity = direction * speed
 		velocity = lerp(velocity, target_velocity, delta * 2.0)
@@ -87,7 +107,7 @@ func shoot() -> void:
 	var instance  = laser.instantiate()
 	instance.EXCLUDE = self
 	instance.direction = rotation
-	instance.spawn_position = global_position
+	instance.spawn_position = marker.global_position
 	instance.spawn_rotation = rotation
 	root.add_child.call_deferred(instance)
 	instance.collision_layer = 3
@@ -135,3 +155,52 @@ func _on_facing_body_entered(body: Node2D) -> void:
 func _on_facing_body_exited(body: Node2D) -> void:
 	if body is Enemy:
 		body.player_is_facing = false
+
+func health_changed() -> void:
+	var current_heart = Shortcuts.lifes
+	match current_heart:
+		1:
+			match health:
+				0:
+					heart_1.play("empty")
+				1:
+					heart_1.play("1_quarter")
+				2:
+					heart_1.play("half")
+				3:
+					heart_1.play("3_quarter")
+				4:
+					heart_1.play("full")
+		2:
+			match health:
+				0:
+					heart_2.play("empty")
+				1:
+					heart_2.play("1_quarter")
+				2:
+					heart_2.play("half")
+				3:
+					heart_2.play("3_quarter")
+				4:
+					heart_2.play("full")
+		3:
+			match health:
+				0:
+					heart_3.play("empty")
+				1:
+					heart_3.play("1_quarter")
+				2:
+					heart_3.play("half")
+				3:
+					heart_3.play("3_quarter")
+				4:
+					heart_3.play("full")
+
+func screen_shake() -> void:
+	var amount := pow(trauma, trauma_power)
+	camera.rotation = max_roll * amount * randf_range(-1, 1)
+	camera.offset.x = max_offset.x * amount * randf_range(-1, 1)
+	camera.offset.y = max_offset.y * amount * randf_range(-1, 1)
+
+func add_trauma(amount: float) -> void:
+	trauma = min(trauma + amount, 1.0)

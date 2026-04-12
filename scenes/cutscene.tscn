@@ -1592,7 +1592,7 @@ offset_bottom = 258.0
 theme_override_fonts/font = ExtResource("5_loviu")
 theme_override_font_sizes/font_size = 33
 text = "YES, BUT IT WILL
-COST YOU 250
+COST YOU 350
 COINS"
 horizontal_alignment = 1
 vertical_alignment = 1

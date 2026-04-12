@@ -27,6 +27,10 @@ func _on_pause_pressed() -> void:
 	animation.play("on")
 
 func _on_replay_pressed() -> void:
+	Shortcuts.game_over = false
+	Shortcuts.coins = 0
+	Shortcuts.lifes = 3
+	Shortcuts.tutorial_played = false
 	get_tree().paused = false
 	paused = false
 	get_tree().change_scene_to_packed(MAIN_MENU)
