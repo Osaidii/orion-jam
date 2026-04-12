@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="orion-jam"
+config/name="Lost-in-Cosmos"
+config/version="v1.0"
 run/main_scene="uid://dx7h1rxfqof3v"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.09411765, 0.105882354, 0.11372549, 1)

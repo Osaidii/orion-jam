@@ -1,0 +1,365 @@
+[gd_scene format=3 uid="uid://bd667qr7l5i4w"]
+
+[ext_resource type="Script" uid="uid://cowc12x1q0w1d" path="res://scripts/credits.gd" id="1_al82v"]
+[ext_resource type="Texture2D" uid="uid://cjoi2oud5v7yy" path="res://assets/bg uheartbeast github.com.png" id="1_gw1d4"]
+[ext_resource type="FontFile" uid="uid://bocb13hcj1xll" path="res://assets/kenney mini square uheartbeast github.com.ttf" id="2_tlwrt"]
+[ext_resource type="Texture2D" uid="uid://crm22qr3udhwt" path="res://assets/far stars bg uheartbeast github.com.png" id="2_y8nor"]
+[ext_resource type="Texture2D" uid="uid://d0a6b8d1mcksc" path="res://assets/close stars bg uheartbeast github.com.png" id="3_al82v"]
+[ext_resource type="Shader" uid="uid://bfdgwmimpaxqr" path="res://storage/transition.gdshader" id="4_y8nor"]
+
+[sub_resource type="Animation" id="Animation_tlwrt"]
+resource_name = "credits"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g618n"]
+_data = {
+&"credits": SubResource("Animation_tlwrt")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t4hkn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_al82v"]
+shader = ExtResource("4_y8nor")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(5, 5)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 9.0
+shader_parameter/progress_bias = Vector2(10, 10)
+
+[sub_resource type="Animation" id="Animation_jk1qb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [9.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rect:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5dd4i"]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 9.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rect:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_lgwnu"]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [9.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rect:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tlwrt"]
+_data = {
+&"RESET": SubResource("Animation_jk1qb"),
+&"in": SubResource("Animation_5dd4i"),
+&"out": SubResource("Animation_lgwnu")
+}
+
+[node name="Credits" type="Control" unique_id=1277765123]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_al82v")
+
+[node name="Credits" type="Label" parent="." unique_id=1982783656]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_tlwrt")
+theme_override_font_sizes/font_size = 32
+text = "Developer: Osaidii
+osaidii.itch.io
+
+Assets
+Player Ship: github.com/uheartbeast
+Enemy Ship: gvituri.itch.io
+Planet: deep-fold.itch.io
+UI: free-game-assets.itch.io
+Background: github.com/uheartbeast
+Transition: github.com/cashew-olddew
+Radio: pixilart.com/pixel-panic
+Coins: kevins-moms-house.itch.io
+Music: https://lowenergygirl.itch.io
+Projectiles: github.com/uheartbeast
+Font: github.com/uheartbeast
+Explosion Sound: github.com/uheartbeast
+Blue Window: https://crusenho.itch.io/
+Hearts: fliflifly.itch.io
+
+
+
+
+
+
+
+
+
+
+
+Lost in Cosmos!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Animate" type="AnimationPlayer" parent="." unique_id=1549289604]
+libraries/ = SubResource("AnimationLibrary_g618n")
+autoplay = &"credits"
+
+[node name="Background" type="ParallaxBackground" parent="." unique_id=722601900]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="Layer 1" type="ParallaxLayer" parent="Background" unique_id=1550455217]
+position = Vector2(232, -57)
+motion_scale = Vector2(0.25, 0.25)
+motion_mirroring = Vector2(128, 128)
+
+[node name="Texture 1" type="Sprite2D" parent="Background/Layer 1" unique_id=1829419578]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(0, 64)
+texture = ExtResource("1_gw1d4")
+
+[node name="Texture 2" type="Sprite2D" parent="Background/Layer 1" unique_id=1555358936]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(-256, 64)
+texture = ExtResource("1_gw1d4")
+
+[node name="Texture 3" type="Sprite2D" parent="Background/Layer 1" unique_id=901371901]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(256, 64)
+texture = ExtResource("1_gw1d4")
+
+[node name="Texture 4" type="Sprite2D" parent="Background/Layer 1" unique_id=536383438]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(0, 192)
+texture = ExtResource("1_gw1d4")
+
+[node name="Texture 5" type="Sprite2D" parent="Background/Layer 1" unique_id=1086380336]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(-256, 192)
+texture = ExtResource("1_gw1d4")
+
+[node name="Texture 6" type="Sprite2D" parent="Background/Layer 1" unique_id=389870130]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(256, 192)
+texture = ExtResource("1_gw1d4")
+
+[node name="Layer 2" type="ParallaxLayer" parent="Background" unique_id=88661482]
+position = Vector2(232, 7)
+motion_scale = Vector2(0.45, 0.45)
+motion_mirroring = Vector2(128, 128)
+
+[node name="Texture 1" type="Sprite2D" parent="Background/Layer 2" unique_id=1372586891]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(0, 192)
+texture = ExtResource("2_y8nor")
+
+[node name="Texture 2" type="Sprite2D" parent="Background/Layer 2" unique_id=1415424167]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(-256, 192)
+texture = ExtResource("2_y8nor")
+
+[node name="Texture 3" type="Sprite2D" parent="Background/Layer 2" unique_id=1222978964]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(256, 192)
+texture = ExtResource("2_y8nor")
+
+[node name="Texture 4" type="Sprite2D" parent="Background/Layer 2" unique_id=1367650824]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(0, 64)
+texture = ExtResource("2_y8nor")
+
+[node name="Texture 5" type="Sprite2D" parent="Background/Layer 2" unique_id=1514103217]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(-256, 64)
+texture = ExtResource("2_y8nor")
+
+[node name="Texture 6" type="Sprite2D" parent="Background/Layer 2" unique_id=1449401045]
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(256, 64)
+texture = ExtResource("2_y8nor")
+
+[node name="Layer 3" type="ParallaxLayer" parent="Background" unique_id=1710543885]
+position = Vector2(232, 7)
+motion_scale = Vector2(0.9, 0.9)
+motion_mirroring = Vector2(128, 128)
+
+[node name="Texture" type="Sprite2D" parent="Background/Layer 3" unique_id=1946180500]
+z_index = 2
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(0, 64)
+texture = ExtResource("3_al82v")
+
+[node name="Texture2" type="Sprite2D" parent="Background/Layer 3" unique_id=247729442]
+z_index = 2
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(-256, 64)
+texture = ExtResource("3_al82v")
+
+[node name="Texture3" type="Sprite2D" parent="Background/Layer 3" unique_id=746014077]
+z_index = 2
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(256, 64)
+texture = ExtResource("3_al82v")
+
+[node name="Texture4" type="Sprite2D" parent="Background/Layer 3" unique_id=946609195]
+z_index = 2
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(0, 192)
+texture = ExtResource("3_al82v")
+
+[node name="Texture5" type="Sprite2D" parent="Background/Layer 3" unique_id=1720406268]
+z_index = 2
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(-256, 192)
+texture = ExtResource("3_al82v")
+
+[node name="Texture6" type="Sprite2D" parent="Background/Layer 3" unique_id=1898373211]
+z_index = 2
+material = SubResource("CanvasItemMaterial_t4hkn")
+position = Vector2(256, 192)
+texture = ExtResource("3_al82v")
+
+[node name="Transition" type="CanvasLayer" parent="." unique_id=1828348081]
+layer = 5
+
+[node name="Rect" type="ColorRect" parent="Transition" unique_id=1603733806]
+material = SubResource("ShaderMaterial_al82v")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1280.0
+offset_top = 720.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.1415927
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Animate" type="AnimationPlayer" parent="Transition" unique_id=1658235052]
+libraries/ = SubResource("AnimationLibrary_tlwrt")
+autoplay = &"in"
+
+[connection signal="animation_finished" from="Animate" to="." method="_on_animate_animation_finished"]

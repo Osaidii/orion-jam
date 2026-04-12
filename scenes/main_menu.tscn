@@ -8,8 +8,162 @@
 [ext_resource type="Texture2D" uid="uid://bx0aon58jl8oh" path="res://assets/UI/Exit Buttom.png" id="5_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://c2hex6e07s40k" path="res://scenes/player.tscn" id="7_oa1go"]
 [ext_resource type="FontFile" uid="uid://bocb13hcj1xll" path="res://assets/kenney mini square uheartbeast github.com.ttf" id="8_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://c50h028duuyan" path="res://assets/UI/Buttons/info.png" id="9_5dd4i"]
+[ext_resource type="Shader" uid="uid://bfdgwmimpaxqr" path="res://storage/transition.gdshader" id="9_jk1qb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rtw2f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jk1qb"]
+shader = ExtResource("9_jk1qb")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(5, 5)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 9.0
+shader_parameter/progress_bias = Vector2(10, 10)
+
+[sub_resource type="Animation" id="Animation_jk1qb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [9.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rect:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5dd4i"]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 9.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rect:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_lgwnu"]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [9.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rect:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5dd4i"]
+_data = {
+&"RESET": SubResource("Animation_jk1qb"),
+&"in": SubResource("Animation_5dd4i"),
+&"out": SubResource("Animation_lgwnu")
+}
 
 [node name="Main Menu" type="Control" unique_id=476327762]
 layout_mode = 3
@@ -138,11 +292,11 @@ texture = ExtResource("3_8ln24")
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=25321822]
 layout_mode = 0
 offset_left = 117.0
-offset_top = 443.99997
+offset_top = 433.0
 offset_right = 527.0
-offset_bottom = 718.0
+offset_bottom = 755.0
 scale = Vector2(0.675, 0.675)
-theme_override_constants/separation = 32
+theme_override_constants/separation = 80
 alignment = 1
 
 [node name="Start" type="TextureButton" parent="Buttons" unique_id=1029792557]
@@ -172,5 +326,37 @@ theme_override_font_sizes/normal_font_size = 149
 text = "Lost in
 Cosmos"
 
+[node name="Credits" type="TextureButton" parent="." unique_id=66394086]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 683.99994
+offset_right = 215.0
+offset_bottom = 893.99994
+scale = Vector2(0.154, 0.154)
+texture_normal = ExtResource("9_5dd4i")
+
+[node name="Transition" type="CanvasLayer" parent="." unique_id=1230718715]
+layer = 5
+
+[node name="Rect" type="ColorRect" parent="Transition" unique_id=642212560]
+material = SubResource("ShaderMaterial_jk1qb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1280.0
+offset_top = 720.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.1415927
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Animate" type="AnimationPlayer" parent="Transition" unique_id=851213304]
+libraries/ = SubResource("AnimationLibrary_5dd4i")
+autoplay = &"in"
+
 [connection signal="pressed" from="Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Buttons/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
