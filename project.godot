@@ -25,6 +25,7 @@ buses/default_bus_layout="uid://dmmva076exlbr"
 
 Music="*uid://cg4wv5kve5lnp"
 Shortcuts="*uid://kvyp2lol4lym"
+Transition="*uid://dcgvnik4y2ylj"
 
 [display]
 

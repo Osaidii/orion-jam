@@ -25,7 +25,6 @@
 [ext_resource type="Shader" uid="uid://dhe8ht5tacnke" path="res://storage/blur.tres" id="18_lakw3"]
 [ext_resource type="Texture2D" uid="uid://bjvjq4gs53sgm" path="res://assets/Window for Screen.png" id="24_munwf"]
 [ext_resource type="Texture2D" uid="uid://c6okuclbtxpxr" path="res://assets/UI/You Lose.png" id="25_ts3gi"]
-[ext_resource type="Shader" uid="uid://bfdgwmimpaxqr" path="res://storage/transition.gdshader" id="26_munwf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_er82a"]
 atlas = ExtResource("2_kpybi")
@@ -1162,158 +1161,6 @@ size = Vector2(5316.6104, 89.78906)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ts3gi"]
 size = Vector2(5101.8975, 145.9961)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ts3gi"]
-shader = ExtResource("26_munwf")
-shader_parameter/use_sprite_alpha = true
-shader_parameter/use_transition_texture = false
-shader_parameter/transition_type = 0
-shader_parameter/position = Vector2(0.5, 0.5)
-shader_parameter/invert = false
-shader_parameter/grid_size = Vector2(5, 5)
-shader_parameter/rotation_angle = 0.0
-shader_parameter/global_x_mirror = false
-shader_parameter/global_y_mirror = false
-shader_parameter/local_x_mirror = false
-shader_parameter/local_y_mirror = false
-shader_parameter/stagger = Vector2(0, 0)
-shader_parameter/cumulative_stagger_flip = false
-shader_parameter/cumulative_stagger = Vector2(0, 0)
-shader_parameter/stagger_frequency = Vector2i(2, 2)
-shader_parameter/flip_frequency = Vector2i(1, 1)
-shader_parameter/basic_feather = 0.0
-shader_parameter/use_mask_size = false
-shader_parameter/mask_size = Vector2(100, 100)
-shader_parameter/edges = 6
-shader_parameter/shape_feather = 0.1
-shader_parameter/sectors = 1
-shader_parameter/clock_feather = 0.0
-shader_parameter/progress = 9.0
-shader_parameter/progress_bias = Vector2(10, 10)
-
-[sub_resource type="Animation" id="Animation_jk1qb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [9.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Rect:z_index")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_5dd4i"]
-resource_name = "in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 9.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Rect:z_index")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9667, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 0, 0]
-}
-
-[sub_resource type="Animation" id="Animation_lgwnu"]
-resource_name = "out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rect:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [9.0, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Rect:z_index")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0nbtd"]
-_data = {
-&"RESET": SubResource("Animation_jk1qb"),
-&"in": SubResource("Animation_5dd4i"),
-&"out": SubResource("Animation_lgwnu")
-}
-
 [node name="World" type="Node2D" unique_id=1408466898]
 script = ExtResource("1_oo54l")
 required_coins = 350
@@ -1952,28 +1799,6 @@ position = Vector2(-4127.0005, -610)
 rotation = -1.2548918
 scale = Vector2(1.0300001, 1.0300001)
 shape = SubResource("RectangleShape2D_ts3gi")
-
-[node name="Transition" type="CanvasLayer" parent="." unique_id=1990276997]
-layer = 5
-
-[node name="Rect" type="ColorRect" parent="Transition" unique_id=2056663965]
-material = SubResource("ShaderMaterial_ts3gi")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1280.0
-offset_top = 720.0
-offset_right = 1280.0
-offset_bottom = 720.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 3.1415927
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Animate" type="AnimationPlayer" parent="Transition" unique_id=1202438915]
-libraries/ = SubResource("AnimationLibrary_0nbtd")
-autoplay = &"in"
 
 [connection signal="pressed" from="UI/Pause/Pause" to="Pause Menu" method="_on_pause_pressed"]
 [connection signal="pressed" from="Pause Menu/UI/Exit Margin/Exit" to="Pause Menu" method="_on_exit_pressed"]
